@@ -1,0 +1,61 @@
+{
+  "header": {
+    "startWithTemplates": "Commencer avec un de nos modèles",
+    "comingSoon": {
+      "title": "Bientôt disponible !",
+      "description": "Nous travaillons dur pour vous apporter une collection de beaux modèles de CV. Restez à l'écoute !",
+      "button": "Compris"
+    }
+  },
+  "hero": {
+    "title": "Créez votre CV parfait en quelques minutes",
+    "subtitle": "Créez des CV professionnels sans effort. Choisissez parmi de beaux modèles ou laissez notre IA extraire les données de votre CV existant.",
+    "createButton": "Créer mon CV"
+  },
+  "cv": {
+    "sections": {
+      "personalInfo": "Informations personnelles",
+      "profile": "Profil",
+      "education": "Formation",
+      "experience": "Expérience professionnelle",
+      "skills": "Compétences",
+      "languages": "Langues",
+      "interests": "Centres d'intérêt",
+      "additionalInfo": "Informations complémentaires"
+    },
+    "fields": {
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "title": "Titre professionnel",
+      "email": "Email",
+      "phone": "Téléphone",
+      "address": "Adresse",
+      "addPhoto": "Ajouter une photo",
+      "birthDate": "Date de naissance",
+      "birthPlace": "Lieu de naissance",
+      "nationality": "Nationalité",
+      "civilStatus": "État civil",
+      "website": "Site internet",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "preview": {
+    "title": "Prévisualisation",
+    "export": {
+      "button": "Exporter en PDF",
+      "generating": "Génération du PDF...",
+      "terms": {
+        "title": "Conditions d'utilisation",
+        "description": "En exportant votre CV, vous acceptez les conditions suivantes :",
+        "conditions": {
+          "personal": "Le CV généré est destiné à un usage personnel uniquement",
+          "accuracy": "Vous êtes responsable de l'exactitude des informations fournies",
+          "intellectual": "Le design du CV reste la propriété intellectuelle de CVforge",
+          "privacy": "Les données personnelles sont traitées conformément à notre politique de confidentialité"
+        },
+        "cancel": "Annuler",
+        "accept": "Accepter et télécharger"
+      }
+    }
+  }
+}

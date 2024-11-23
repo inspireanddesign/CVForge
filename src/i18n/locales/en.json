@@ -1,0 +1,61 @@
+{
+  "header": {
+    "startWithTemplates": "Start with one of our many models",
+    "comingSoon": {
+      "title": "Coming Soon!",
+      "description": "We're working hard to bring you a collection of beautiful CV templates. Stay tuned for updates!",
+      "button": "Got it"
+    }
+  },
+  "hero": {
+    "title": "Create your perfect CV in minutes",
+    "subtitle": "Build professional CVs effortlessly. Choose from beautiful templates or let our AI extract data from your existing CV.",
+    "createButton": "Create CV Now"
+  },
+  "cv": {
+    "sections": {
+      "personalInfo": "Personal Information",
+      "profile": "Profile",
+      "education": "Education",
+      "experience": "Experience",
+      "skills": "Skills",
+      "languages": "Languages",
+      "interests": "Interests",
+      "additionalInfo": "Additional Information"
+    },
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "title": "Professional Title",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "addPhoto": "Add Photo",
+      "birthDate": "Birth Date",
+      "birthPlace": "Birth Place",
+      "nationality": "Nationality",
+      "civilStatus": "Civil Status",
+      "website": "Website",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "preview": {
+    "title": "Preview",
+    "export": {
+      "button": "Export to PDF",
+      "generating": "Generating PDF...",
+      "terms": {
+        "title": "Terms of Use",
+        "description": "By exporting your CV, you agree to the following terms:",
+        "conditions": {
+          "personal": "The generated CV is for personal use only",
+          "accuracy": "You are responsible for the accuracy of the provided information",
+          "intellectual": "The CV design remains the intellectual property of CVforge",
+          "privacy": "Personal data is processed according to our privacy policy"
+        },
+        "cancel": "Cancel",
+        "accept": "Accept and Download"
+      }
+    }
+  }
+}
