@@ -5,9 +5,10 @@ interface TermsModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAccept: () => void;
+  onSave: (e: React.FormEvent) => void;
 }
 
-export default function TermsModal({ isOpen, onClose, onAccept }: TermsModalProps) {
+export default function TermsModal({ isOpen, onClose, onAccept, onSave }: TermsModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -81,7 +82,10 @@ export default function TermsModal({ isOpen, onClose, onAccept }: TermsModalProp
             <button
               type="button"
               className="w-full sm:w-auto rounded-lg px-4 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none"
-              onClick={onAccept}
+              onClick={(e) => {
+                onSave(e); 
+                onAccept()
+              }}
             >
               Accepter et télécharger
             </button>

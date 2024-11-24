@@ -9,16 +9,31 @@ interface TextEditorProps {
 
 export default function TextEditor({ value, onChange, placeholder }: TextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const cursorPositionRef = useRef<Range | null>(null);
 
-  const handleFormat = (command: string) => {
-    if (!editorRef.current) return;
-    document.execCommand(command, false);
+  // Sauvegarder la position du curseur
+  const saveCursorPosition = () => {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      cursorPositionRef.current = selection.getRangeAt(0);
+    }
   };
 
-  const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
-    if (!editorRef.current) return;
-    const content = editorRef.current.innerHTML;
-    onChange(content);
+  // Restaurer la position du curseur
+  const restoreCursorPosition = () => {
+    const selection = window.getSelection();
+    if (cursorPositionRef.current && selection) {
+      selection.removeAllRanges();
+      selection.addRange(cursorPositionRef.current);
+    }
+  };
+
+  const handleInput = () => {
+    if (editorRef.current) {
+      saveCursorPosition(); // Sauvegarder la position du curseur
+      const content = editorRef.current.innerHTML;
+      onChange(content); // Mettre à jour la valeur dans le parent
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -28,15 +43,18 @@ export default function TextEditor({ value, onChange, placeholder }: TextEditorP
     }
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
+  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
     const text = e.clipboardData.getData('text/plain');
     document.execCommand('insertText', false, text);
   };
 
+  // Synchroniser le contenu uniquement si nécessaire
   useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.innerHTML = value;
+    if (editorRef.current && editorRef.current.innerHTML !== value) {
+      saveCursorPosition(); // Sauvegarder avant modification
+      editorRef.current.innerHTML = value; // Mettre à jour le contenu
+      restoreCursorPosition(); // Restaurer la position du curseur
     }
   }, [value]);
 
@@ -46,7 +64,7 @@ export default function TextEditor({ value, onChange, placeholder }: TextEditorP
         <div className="flex items-center gap-1 p-2 border-b border-gray-300 bg-gray-50">
           <button
             type="button"
-            onClick={() => handleFormat('bold')}
+            onClick={() => document.execCommand('bold')}
             className="p-1.5 rounded hover:bg-gray-200 transition-colors"
             title="Gras"
           >
@@ -54,7 +72,7 @@ export default function TextEditor({ value, onChange, placeholder }: TextEditorP
           </button>
           <button
             type="button"
-            onClick={() => handleFormat('italic')}
+            onClick={() => document.execCommand('italic')}
             className="p-1.5 rounded hover:bg-gray-200 transition-colors"
             title="Italique"
           >
@@ -62,7 +80,7 @@ export default function TextEditor({ value, onChange, placeholder }: TextEditorP
           </button>
           <button
             type="button"
-            onClick={() => handleFormat('underline')}
+            onClick={() => document.execCommand('underline')}
             className="p-1.5 rounded hover:bg-gray-200 transition-colors"
             title="Souligné"
           >

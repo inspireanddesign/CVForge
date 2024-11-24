@@ -13,6 +13,7 @@ import CVPreview from '../components/preview/CVPreview';
 import PDFExport from '../components/PDFExport';
 import TipsTooltip from '../components/TipsTooltip';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 const initialData = {
   personalInfo: {
@@ -42,9 +43,29 @@ export default function CreateCV() {
   const [showPreview, setShowPreview] = useState(false);
   const cvRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  // const [loading, setLoading] = useState(false);
+  // const [success, setSuccess] = useState(false);
+  const API_URL = `http://localhost:5000/api`
 
   const updateData = (section: string, newData: any) => {
     setData(prev => ({ ...prev, [section]: newData }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    console.log('Form submitted:', data);
+    
+    e.preventDefault();
+    // setLoading(true);
+    try {
+      await axios.post(`${API_URL}/cv`, data);
+      // setFormData({ name: '', email: '', message: '' });
+      // setSuccess(true);
+      // fetchUsers();
+      // setTimeout(() => setSuccess(false), 3000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+    // setLoading(false);
   };
 
   return (
@@ -185,7 +206,7 @@ export default function CreateCV() {
 
               {/* Export button */}
               <div className="p-4 border-t border-gray-200">
-                <PDFExport cvRef={cvRef} />
+                <PDFExport cvRef={cvRef} onSave={(e: React.FormEvent) => handleSubmit(e)} />
               </div>
             </div>
           </div>
