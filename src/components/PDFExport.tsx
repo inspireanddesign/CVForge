@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Download } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
@@ -7,49 +7,90 @@ import TermsModal from './TermsModal';
 
 interface PDFExportProps {
   cvRef: React.RefObject<HTMLDivElement>;
+  onSave: (e: React.FormEvent) => void;
 }
 
-export default function PDFExport({ cvRef }: PDFExportProps) {
+export default function PDFExport({ cvRef, onSave }: PDFExportProps) {
   const [isExporting, setIsExporting] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const { t } = useTranslation();
 
+  const prepareDOMElement = (element: HTMLElement) => {
+    // Clone the element to avoid modifying the original
+    const clone = element.cloneNode(true) as HTMLElement;
+    
+    // Apply necessary styles for better PDF rendering
+    clone.style.width = '794px'; // A4 width in pixels at 96 DPI
+    clone.style.margin = '0';
+    clone.style.padding = '0';
+    
+    // Temporarily append to document
+    document.body.appendChild(clone);
+    
+    return clone;
+  };
+
+  const cleanupDOMElement = (element: HTMLElement) => {
+    document.body.removeChild(element);
+  };
+
   const exportToPDF = async () => {
-    if (!cvRef.current) return;
+    if (!cvRef.current) {
+      console.error('CV reference not found');
+      return;
+    }
 
     try {
       setIsExporting(true);
 
-      // Get the CV element
-      const cvElement = cvRef.current;
-      
-      // Calculate dimensions
-      const aspectRatio = 1.4142; // A4 aspect ratio
-      const width = cvElement.offsetWidth;
-      const height = width * aspectRatio;
+      // Prepare the element for export
+      const preparedElement = prepareDOMElement(cvRef.current);
 
-      // Create canvas with proper dimensions
-      const canvas = await html2canvas(cvElement, {
-        scale: 2,
-        width,
-        height,
-        windowWidth: width,
-        windowHeight: height,
+      // Wait for images to load
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      const scale = 2; // Higher scale for better quality
+      const canvas = await html2canvas(preparedElement, {
+        scale,
         useCORS: true,
         allowTaint: true,
         logging: false,
         backgroundColor: '#ffffff',
+        onclone: (doc, element) => {
+          // Additional modifications to cloned element if needed
+          element.style.visibility = 'visible';
+        }
       });
 
-      // Create PDF with proper dimensions
-      const imgWidth = 210; // A4 width in mm
-      const imgHeight = 297; // A4 height in mm
-      
+      // Clean up the temporary element
+      cleanupDOMElement(preparedElement);
+
+      // PDF dimensions (A4)
+      const pdfWidth = 210; // mm
+      const pdfHeight = 297; // mm
+
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
       });
+
+      // Calculate positions to center the content
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const aspectRatio = canvas.width / canvas.height;
+      
+      let imgWidth = pdfWidth;
+      let imgHeight = pdfWidth / aspectRatio;
+      
+      // Adjust if height exceeds page height
+      if (imgHeight > pdfHeight) {
+        imgHeight = pdfHeight;
+        imgWidth = imgHeight * aspectRatio;
+      }
+      
+      // Center the image
+      const xOffset = (pdfWidth - imgWidth) / 2;
+      const yOffset = (pdfHeight - imgHeight) / 2;
 
       // Add metadata
       pdf.setProperties({
@@ -60,16 +101,16 @@ export default function PDFExport({ cvRef }: PDFExportProps) {
         keywords: 'cv, resume, curriculum vitae',
       });
 
-      // Add image to PDF
+      // Add image with improved quality settings
       pdf.addImage(
-        canvas.toDataURL('image/jpeg', 1.0),
+        imgData,
         'JPEG',
-        0,
-        0,
+        xOffset,
+        yOffset,
         imgWidth,
         imgHeight,
         undefined,
-        'FAST'
+        'MEDIUM'
       );
 
       // Save PDF
@@ -77,6 +118,7 @@ export default function PDFExport({ cvRef }: PDFExportProps) {
 
     } catch (error) {
       console.error('Error generating PDF:', error);
+      // Vous pourriez ajouter ici une notification pour l'utilisateur
     } finally {
       setIsExporting(false);
     }
@@ -85,6 +127,14 @@ export default function PDFExport({ cvRef }: PDFExportProps) {
   const handleExport = () => {
     setShowTerms(true);
   };
+
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      const tempElements = document.querySelectorAll('[data-temp-pdf-element]');
+      tempElements.forEach(element => element.remove());
+    };
+  }, []);
 
   return (
     <>
@@ -111,6 +161,7 @@ export default function PDFExport({ cvRef }: PDFExportProps) {
 
       <TermsModal
         isOpen={showTerms}
+        onSave={onSave}
         onClose={() => setShowTerms(false)}
         onAccept={() => {
           setShowTerms(false);
