@@ -28,7 +28,7 @@ const AVAILABLE_FIELDS = {
   nationality: 'Nationalité',
   civilStatus: 'État civil',
   website: 'Site internet',
-  linkedin: 'LinkedIn'
+  linkedin: 'LinkedIn',
 };
 
 export default function PersonalInfo({ data, onChange }: PersonalInfoProps) {
@@ -66,26 +66,28 @@ export default function PersonalInfo({ data, onChange }: PersonalInfoProps) {
       id: Date.now().toString(),
       type,
       value: '',
-      label: AVAILABLE_FIELDS[type as keyof typeof AVAILABLE_FIELDS]
+      label: AVAILABLE_FIELDS[type as keyof typeof AVAILABLE_FIELDS],
     };
     const updatedFields = [...data.additionalFields, newField];
     onChange({ ...data, additionalFields: updatedFields });
   };
 
   const removeField = (id: string) => {
-    const updatedFields = data.additionalFields.filter(field => field.id !== id);
+    const updatedFields = data.additionalFields.filter(
+      (field) => field.id !== id
+    );
     onChange({ ...data, additionalFields: updatedFields });
   };
 
   const updateField = (id: string, value: string) => {
-    const updatedFields = data.additionalFields.map(field =>
+    const updatedFields = data.additionalFields.map((field) =>
       field.id === id ? { ...field, value } : field
     );
     onChange({ ...data, additionalFields: updatedFields });
   };
 
   // Get list of field types that are already added
-  const usedFieldTypes = new Set(data.additionalFields.map(field => field.type));
+  const usedFieldTypes = new Set(data.additionalFields.map((field) => field.type));
 
   return (
     <div className="space-y-6">
@@ -99,7 +101,7 @@ export default function PersonalInfo({ data, onChange }: PersonalInfoProps) {
             accept="image/*"
             className="hidden"
           />
-          <div 
+          <div
             className="w-full aspect-square max-w-[120px] mx-auto bg-gray-100 rounded-lg overflow-hidden cursor-pointer group relative"
             onClick={triggerImageUpload}
           >
@@ -161,42 +163,45 @@ export default function PersonalInfo({ data, onChange }: PersonalInfoProps) {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
             />
           </div>
+        </div>
+      </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              value={data.email}
-              onChange={(e) => handleChange('email', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
+      {/* Email, Téléphone et Adresse */}
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            value={data.email}
+            onChange={(e) => handleChange('email', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Téléphone
-            </label>
-            <input
-              type="tel"
-              value={data.phone}
-              onChange={(e) => handleChange('phone', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Téléphone
+          </label>
+          <input
+            type="tel"
+            value={data.phone}
+            onChange={(e) => handleChange('phone', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Adresse
-            </label>
-            <input
-              type="text"
-              value={data.address}
-              onChange={(e) => handleChange('address', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Adresse
+          </label>
+          <input
+            type="text"
+            value={data.address}
+            onChange={(e) => handleChange('address', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          />
         </div>
       </div>
 
