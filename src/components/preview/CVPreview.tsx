@@ -74,7 +74,7 @@ const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(({ data, sidebarCol
   return (
     <div ref={ref} className="w-full aspect-[1/1.4142] flex flex-col md:flex-row text-[8px] md:text-[10px] bg-white shadow-lg">
       {/* Sidebar */}
-      <div className={`w-full md:w-1/3 ${sidebarColor} text-white p-4 md:p-6`}>
+      <div data-column="left" className={`w-full md:w-1/3 ${sidebarColor} text-white p-4 md:p-6`}>
         {/* Photo and Name */}
         <div className="text-center md:text-left mb-4">
           {data.personalInfo.photo && (
@@ -195,7 +195,7 @@ const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(({ data, sidebarCol
       </div>
 
       {/* Main Content */}
-      <div className="w-full md:w-2/3 p-4 md:p-6">
+      <div data-column="right" className="w-full md:w-2/3 p-4 md:p-6">
         {/* Profile */}
         {data.profile && (
           <section className="mb-6">

@@ -36,5 +36,47 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SHNCKE2FM3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SHNCKE2FM3');
+    </script>
+
+    <script>
+      window.gtag('event', 'click', {
+        event_category: 'Button',
+        event_label: 'Create CV Now',
+      });
+
+      window.gtag('event', 'click', {
+        event_category: 'Button',
+        event_label: 'Créer mon CV',
+      });
+
+      window.gtag('event', 'click', {
+        event_category: 'Button',
+        event_label: 'Generating PDF...',
+      });
+
+      window.gtag('event', 'click', {
+        event_category: 'Button',
+        event_label: 'énération du PDF...',
+      });
+
+      window.gtag('event', 'click', {
+        event_category: 'Button',
+        event_label: 'Accepter et télécharger',
+      });
+
+      // window.gtag('event', 'click', {
+      //   event_category: 'Button',
+      //   event_label: 'Accepter et télécharger',
+      // });
+    </script>
   </body>
 </html>
