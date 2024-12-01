@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Eye, X } from 'lucide-react';
 import Section from '../components/Section';
 import PersonalInfo from '../components/sections/PersonalInfo';
@@ -13,7 +13,26 @@ import CVPreview from '../components/preview/CVPreview';
 import PDFExport from '../components/PDFExport';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { getCvData } from '../../utils/help'
 
+type typeCvData = {
+  personalInfo: {
+    firstName: string;
+    lastName: string;
+    title: string;
+    email: string;
+    phone: string;
+    address: string;
+    photo: string;
+    additionalFields: never[];
+};
+profile: string;
+education: never[];
+experiences: never[];
+skills: never[];
+languages: never[];
+interests: never[];
+}
 const initialData = {
   personalInfo: {
     firstName: '',
@@ -34,18 +53,27 @@ const initialData = {
 };
 
 export default function CreateCV() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState<typeCvData>( Object.keys(getCvData()).length ? getCvData(): initialData);
   const [openSection, setOpenSection] = useState<string | null>('personalInfo');
   const [showPreview, setShowPreview] = useState(false);
   const [sidebarColor, setSidebarColor] = useState('bg-slate-900');
   const [headingColor, setHeadingColor] = useState('text-slate-900');
   const cvRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
-  const API_URL = `http://localhost:5000/api`;
+  const API_URL =  import.meta.env.VITE_API_UR || `http://localhost:5000/api`;
 
-  const updateData = (section: string, newData: any) => {
+  const updateData = (section: string, newData: unknown) => {
     setData((prev) => ({ ...prev, [section]: newData }));
   };
+
+  useEffect(() => {
+    // console.log('data ==>', getCvData());
+    // console.log('data 2 ==>', getCvData() ? true: false);
+    
+    if(data){
+      localStorage?.setItem('cvData', JSON.stringify(data));
+    }
+  }, [data])
 
   const handleSubmit = async (e: React.FormEvent) => {
     console.log('Form submitted:', data);
