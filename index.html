@@ -45,6 +45,16 @@
   })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
 
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "621d2662-cc47-4e83-9c7d-d8dfa62c347c",
+    });
+  });
+</script>
+
   </head>
   <body>
     <div id="root"></div>
