@@ -29,8 +29,4 @@ export default defineConfig({
   esbuild: {
     logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
-  base: './', // Assurez-vous que la base est correctement définie.
-  server: {
-    historyApiFallback: true, // Permet de gérer les routes côté client.
-  },
 });
