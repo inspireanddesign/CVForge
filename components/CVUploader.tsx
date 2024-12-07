@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { Upload, Loader } from 'lucide-react';
-import { getDocument } from 'pdfjs-dist';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 
 // Configure PDF.js worker
-const pdfjsWorkerUrl = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl;
+GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.15.349/pdf.worker.min.js';
+
 
 interface CVUploaderProps {
   onExtractedData: (data: any) => void;
@@ -38,7 +38,7 @@ export default function CVUploader({ onExtractedData }: CVUploaderProps) {
   };
 
   const parseCV = (text: string) => {
-    const sections = {
+    const sections: any = {
       personalInfo: {
         fullName: '',
         email: '',

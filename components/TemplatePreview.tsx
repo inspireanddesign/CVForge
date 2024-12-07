@@ -42,7 +42,7 @@ interface TemplatePreviewProps {
 }
 
 export default function TemplatePreview({ template = 'test-001', data }: TemplatePreviewProps) {
-  const [primaryColor, setPrimaryColor] = useState('bg-gray-900');
+  const [primaryColor, setPrimaryColor] = useState<any>('bg-gray-900');
 
   const templates = {
     'test-001': Test001Template,

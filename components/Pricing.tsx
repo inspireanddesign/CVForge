@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, FileText, Crown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+// import { useNavigate } from 'react-router-dom';
 
 const features = {
   free: [
@@ -20,7 +21,7 @@ const features = {
 };
 
 export default function Pricing() {
-  const navigate = useNavigate();
+  const navigate = useRouter();
 
   return (
     <section id="pricing" className="py-20 bg-white">
@@ -61,7 +62,7 @@ export default function Pricing() {
             </ul>
 
             <button
-              onClick={() => navigate('/create')}
+              onClick={() => navigate.push('/create')}
               className="w-full px-6 py-3 text-purple-600 border-2 border-purple-200 rounded-lg hover:bg-purple-50 transition-colors font-medium"
             >
               Commencer gratuitement
@@ -98,7 +99,7 @@ export default function Pricing() {
             </ul>
 
             <button
-              onClick={() => navigate('/create?plan=premium')}
+              onClick={() => navigate.push('/create?plan=premium')}
               className="w-full px-6 py-3 bg-white text-purple-600 rounded-lg hover:bg-purple-50 transition-colors font-medium"
             >
               Commencer maintenant

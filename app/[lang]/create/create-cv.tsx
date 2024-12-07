@@ -257,10 +257,11 @@ export default function CreateCV({ lang }: { lang: string }) {
                   data={data}
                   sidebarColor={sidebarColor}
                   headingColor={headingColor}
+                  dictionary={dictionary}
                 />
               </div>
               <div className="p-4 border-t border-gray-200">
-                <PDFExport cvRef={cvRef} onSave={(e: React.FormEvent) => handleSubmit(e)} />
+                <PDFExport cvRef={cvRef}  dictionary={dictionary} onSave={(e: React.FormEvent) => handleSubmit(e)} />
               </div>
             </div>
           </div>

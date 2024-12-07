@@ -57,7 +57,7 @@ export default function Experience({ experiences, onChange }: ExperienceProps) {
   };
 
   const updateExperience = (id: string, field: string, value: any) => {
-    onChange(experiences.map(exp => {
+    onChange(experiences.map((exp: any) => {
       if (exp.id === id) {
         if (field.includes('.')) {
           const [parent, child] = field.split('.');
