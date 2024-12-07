@@ -37,6 +37,12 @@ export default function Interests({ interests, onChange }: InterestsProps) {
           placeholder="Appuyez sur Entrée pour ajouter"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
         />
+         <p 
+            id="interests-help" 
+            className="text-sm text-gray-500 italic"
+          >
+            Appuyez sur la touche "Entrée" après chaque centre d'intérêt pour le valider.
+          </p>
       </div>
 
       <div className="flex flex-wrap gap-2">
