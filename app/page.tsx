@@ -1,14 +1,12 @@
-export default function Home() {
+import { locales } from "@/lib/i18n/config";
+import RedirectPage from "./RedirectPage";
+
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
+
+export default function Home({ params: { lang } }: { params: { lang: string } }) {
   return (
-    <div
-      style={{
-        maxWidth: 1280,
-        margin: '0 auto',
-        padding: '2rem',
-        textAlign: 'center',
-      }}
-    >
-      Start prompting.
-    </div>
+    <RedirectPage lang={lang ? 'fr' : 'en'} />
   );
 }
