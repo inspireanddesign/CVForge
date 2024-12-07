@@ -12,7 +12,9 @@ export default function LanguageSelector() {
     console.log('currentLanguage ==>', currentLanguage)
     const newLang = currentLanguage === 'en' ? 'fr' : 'en';
     i18n.changeLanguage(newLang);
-    localStorage.setItem('i18nextLng', newLang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('i18nextLng', newLang);
+    }
   };
 
   return (

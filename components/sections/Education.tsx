@@ -57,7 +57,7 @@ export default function Education({ education, onChange }: EducationProps) {
   };
 
   const updateEducation = (id: string, field: string, value: any) => {
-    onChange(education.map(edu => {
+    onChange(education.map((edu: any) => {
       if (edu.id === id) {
         if (field.includes('.')) {
           const [parent, child] = field.split('.');
