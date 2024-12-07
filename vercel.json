@@ -1,0 +1,9 @@
+{
+    "functions": {
+      "middleware.js": {
+        "runtime": "edge",
+        "nodeVersion": "20.x"
+      }
+    }
+  }
+  
