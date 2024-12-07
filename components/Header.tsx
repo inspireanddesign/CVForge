@@ -7,6 +7,7 @@ import ComingSoonModal from './ComingSoonModal';
 import LanguageSelector from './LanguageSelector';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { LanguageSwitcher } from './language-switcher';
 
 interface NavigationProps {
   lang: string;
@@ -35,7 +36,8 @@ export default function Header({ lang, dictionary }: NavigationProps) {
           
           <div className="flex items-center gap-4">
             {/* Language Selector */}
-            <LanguageSelector />
+            <LanguageSwitcher />
+            {/* <LanguageSelector /> */}
             
             {/* Mobile menu button */}
             <button
