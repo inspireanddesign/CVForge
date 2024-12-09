@@ -1,11 +1,13 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const RedirectPage = ({ lang }: { lang: string }) => {
     const router = useRouter()
 
-    router.push(`/${lang}`)
+    useEffect(() => {
+      router.push(`/${lang}`)
+    }, [])
   return (
     <div>
       
