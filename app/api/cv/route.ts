@@ -4,6 +4,7 @@ import { Cv } from '@/schema/create-cv'
 
 export async function GET(): Promise<NextResponse> {
   try {
+    console.log('process.env.MONGODB_URI =', process.env.MONGODB_URI)
     await dbConnect()
 
     const cvData = await Cv.find({})

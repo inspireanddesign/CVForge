@@ -40,6 +40,8 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
+    console.log('connecting to mongodb...', MONGODB_URI);
+
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((m) => m);
   }
 
